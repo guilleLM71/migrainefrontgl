@@ -1,0 +1,54 @@
+.activate{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  
+  
+}
+.a {
+    text-decoration: none;
+}
+.button_style {
+    margin-left: 10px !important;
+    margin-right: 10px;
+  }
+.activateapp{
+    position: absolute;
+    top: 10%;    
+    height: 600px;
+    width: 600px;
+    background-color:#060b26;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 15px;
+    box-shadow: 10px 10px 42px 0px rgba(0, 0, 0, 0.75);
+
+}
+
+.activateapp h1{
+   font-size: xx-large;
+
+}
+
+.activateform{
+    border-radius: 15px;
+    background-color:#494f6b ;   
+    width: 300px;
+    height: 300px;
+    display: flex; 
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+
+
+}
+
+.iniciasesion{
+    background-color: rgb(255, 252, 249);
+    border-radius: 15px;
+}
