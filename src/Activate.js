@@ -64,7 +64,7 @@ class Activate extends React.Component {
     e.preventDefault();
 
     axios
-      .post(`https://apimigraine.herokuapp.com/api/auth/activation`, {
+      .post(`https://apimigraineservicio.herokuapp.com/api/auth/activation`, {
         token:this.state.token
       })
       .then(res => {

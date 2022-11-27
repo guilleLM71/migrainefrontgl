@@ -179,7 +179,7 @@ export default class Paciente extends React.Component {
 
     await axios
       .post(
-        `https://apimigraine.herokuapp.com/api/pacient/pacientes`,
+        `https://apimigraineservicio.herokuapp.com/api/pacient/pacientes`,
         { iddoc: this.props.userid },
         { headers: { "x-access-token": this.props.token } }
       )
@@ -211,7 +211,7 @@ export default class Paciente extends React.Component {
 
     let token = localStorage.getItem("token");
     await axios
-      .get(`https://apimigraine.herokuapp.com/api/pacient/paciente/` + idpac, {
+      .get(`https://apimigraineservicio.herokuapp.com/api/pacient/paciente/` + idpac, {
         headers: {
           "Content-type": "application/json",
           "x-access-token": token,
@@ -244,7 +244,7 @@ export default class Paciente extends React.Component {
 
     await axios
       .post(
-        `https://apimigraine.herokuapp.com/api/pacient/doctor`,
+        `https://apimigraineservicio.herokuapp.com/api/pacient/doctor`,
         {
           ci: this.state.ci,
           nombre: this.state.nombre,
@@ -299,7 +299,7 @@ export default class Paciente extends React.Component {
     this.setState({ loading: true });
     await axios
       .put(
-        `https://apimigraine.herokuapp.com/api/pacient/pacientes/` + iduser,
+        `https://apimigraineservicio.herokuapp.com/api/pacient/pacientes/` + iduser,
         JSON.stringify({
           sintomas: this.state.respuestasValor,
           diagnostico: this.state.prediccion,
@@ -339,7 +339,7 @@ export default class Paciente extends React.Component {
     this.setState({ iduser: idpac });
     let token = localStorage.getItem("token");
     await axios
-      .get(`https://apimigraine.herokuapp.com/api/pacient/paciente/` + idpac, {
+      .get(`https://apimigraineservicio.herokuapp.com/api/pacient/paciente/` + idpac, {
         headers: {
           "Content-type": "application/json",
           "x-access-token": token,
@@ -368,7 +368,7 @@ export default class Paciente extends React.Component {
     this.setState({ loading: true });
     await axios
       .put(
-        `https://apimigraine.herokuapp.com/api/pacient/paciente/` + iduser,
+        `https://apimigraineservicio.herokuapp.com/api/pacient/paciente/` + iduser,
         JSON.stringify({
           _id: iduser,
           ci: this.state.ci,
@@ -407,7 +407,7 @@ export default class Paciente extends React.Component {
 
     await axios
       .delete(
-        `https://apimigraine.herokuapp.com/api/pacient/paciente/${idpac}`,
+        `https://apimigraineservicio.herokuapp.com/api/pacient/paciente/${idpac}`,
         {
           headers: {
             "Content-type": "application/json",

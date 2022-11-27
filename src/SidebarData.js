@@ -13,7 +13,7 @@ export const SidebarData = [
     permiso: ['62dc479f69634f69540f421a','6323ec0fe3695dc227807221','6323ebe4e3695dc227807220']
   },
   {
-    title: 'Tratamiento - Muy Pronto!!',
+    title: 'Tratamiento - Proximamente!!',
     path: '/dashboard/tratamiento',
     icon: <FaIcons.FaHeartbeat />,
     cName: 'nav-text',

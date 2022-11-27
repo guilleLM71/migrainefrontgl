@@ -33,7 +33,7 @@ export default class Register extends React.Component {
     
     this.setState({ loading: true })
 
-    await axios.post(`https://apimigraine.herokuapp.com/api/auth/signup`
+    await axios.post(`https://apimigraineservicio.herokuapp.com/api/auth/signup`
    
    
     , {
@@ -67,7 +67,7 @@ export default class Register extends React.Component {
     console.log(tokenId)
 
     await axios
-      .post(`https://apimigraine.herokuapp.com/api/auth/googlelogin`, {
+      .post(`https://apimigraineservicio.herokuapp.com/api/auth/googlelogin`, {
         idToken: tokenId
       })
       .then(res => {
@@ -209,7 +209,7 @@ export default class Register extends React.Component {
         </div>
 
         <GoogleLogin
-                  clientId={`997142542146-firhca9259e1a9ghmmkv9g8tta94g9fh.apps.googleusercontent.com`}
+                  clientId={`997142542146-9g3tju9tna00l46erf58shus5gs0m5rl.apps.googleusercontent.com`}
                   buttonText="Registrarse con google"
                   onSuccess={(response)=>{this.responseGoogle(response)}}
                   onFailure={(response)=>{this.responseGoogle(response);console.log(response)}}

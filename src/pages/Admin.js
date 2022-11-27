@@ -26,7 +26,7 @@ export default class Admin extends React.Component {
     
     this.setState({ loading: true })
 
-    await axios.post(`https://apimigraine.herokuapp.com/api/users/admin`
+    await axios.post(`https://apimigraineservicio.herokuapp.com/api/users/admin`
     , {
       username: this.state.username,
       email:this.state.email,

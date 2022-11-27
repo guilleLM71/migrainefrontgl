@@ -55,7 +55,7 @@ class QuizPaciente extends React.Component {
   predecir= async (e)=>{
 
     this.setState({ loadingDiag: true })
-    await fetch('https://apidiagnostico.herokuapp.com/predecir', {
+    await fetch('https://apimigraineservicio.herokuapp.com/predecir', {
         method: "POST",        
         body: JSON.stringify({ Sintomas: [this.state.respuestas]}),
         headers: {"Content-type": "application/json; charset=UTF-8",                 

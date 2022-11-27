@@ -26,7 +26,7 @@ export default class Doctor extends React.Component {
     
     this.setState({ loading: true })
 
-    await axios.post(`https://apimigraine.herokuapp.com/api/pacient/doctor`
+    await axios.post(`https://apimigraineservicio.herokuapp.com/api/pacient/doctor`
     , {
       ci: this.state.ci,
       nombre:this.state.nombre
