@@ -25,7 +25,7 @@ export default class Login extends React.Component {
   componentDidMount=()=>{
     window.gapi.load('client:auth2', () => {
       window.gapi.client.init({
-          clientId: '997142542146-9g3tju9tna00l46erf58shus5gs0m5rl.apps.googleusercontent.com',
+          clientId: '997142542146-aa93t66orm2c5emoplrfmmmv24m38e2m.apps.googleusercontent.com',
          
       })})
 
@@ -186,7 +186,7 @@ export default class Login extends React.Component {
 
 
         <GoogleLogin
-                  clientId={`997142542146-9g3tju9tna00l46erf58shus5gs0m5rl.apps.googleusercontent.com`}
+                  clientId={`997142542146-aa93t66orm2c5emoplrfmmmv24m38e2m.apps.googleusercontent.com`}
                   buttonText="Iniciar sesion con google"
                   onSuccess={(response)=>{this.responseGoogle(response)}}
                   onFailure={(response)=>{this.responseGoogle(response);console.log(response)}}

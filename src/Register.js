@@ -21,7 +21,7 @@ export default class Register extends React.Component {
   componentDidMount=()=>{
     window.gapi.load('client:auth2', () => {
       window.gapi.client.init({
-          clientId: '997142542146-firhca9259e1a9ghmmkv9g8tta94g9fh.apps.googleusercontent.com',
+          clientId: '997142542146-aa93t66orm2c5emoplrfmmmv24m38e2m.apps.googleusercontent.com',
          
       })})
 
@@ -209,7 +209,7 @@ export default class Register extends React.Component {
         </div>
 
         <GoogleLogin
-                  clientId={`997142542146-9g3tju9tna00l46erf58shus5gs0m5rl.apps.googleusercontent.com`}
+                  clientId={`997142542146-aa93t66orm2c5emoplrfmmmv24m38e2m.apps.googleusercontent.com`}
                   buttonText="Registrarse con google"
                   onSuccess={(response)=>{this.responseGoogle(response)}}
                   onFailure={(response)=>{this.responseGoogle(response);console.log(response)}}
