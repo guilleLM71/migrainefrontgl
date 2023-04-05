@@ -1,27 +1,23 @@
 import React, { Component } from 'react';
 import swal from 'sweetalert';
 import {CircularProgress, Button, TextField, Link, Grid } from '@material-ui/core';
+import authSvg from '../../assests/auth.svg';
 import { makeStyles, withStyles, lighten } from '@material-ui/styles';
-import { GoogleLogin } from 'react-google-login';
-import { gapi } from 'gapi-script';
-import './Login.css';
-import Carga from './componentes/Carga';
-import authSvg from './assests/login.svg';
+import GoogleLogin from 'react-google-login';
+import './Register.css';
 const axios = require('axios');
-const bcrypt = require('bcryptjs');
-var salt = bcrypt.genSaltSync(10);
 
-export default class Login extends React.Component {
+export default class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email:"",
       username: '',
+      email:'',
       password: '',
+      confirm_password: '',
       loading:false
     };
   }
-
   componentDidMount=()=>{
     window.gapi.load('client:auth2', () => {
       window.gapi.client.init({
@@ -33,41 +29,39 @@ export default class Login extends React.Component {
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
-
-  
-  login = async () => {
-
-    //const pwd = bcrypt.hashSync(this.state.password, salt);
-
-    this.setState({ loading: true })
-    await axios.post(`https://apimigraineservicio.herokuapp.com/api/auth/signin`, {
-      email:this.state.email,
-      username: this.state.username,
-      password: this.state.password,
-    }).then((res) => { 
-      localStorage.setItem('token', res.data.token);
-      console.log('token', res.data.token)
-      localStorage.setItem('user_id', res.data.id);
-      console.log('user_id', res.data.id)
-      
-     
-      this.setState({ loading:false })
-      this.props.history.push('/dashboard/home')
-      
-
-    }).catch((err) => {
-      if (err.response && err.response.data && err.response.data.errorMessage) {
-        swal({
-          text: err.response.data.errorMessage,
-          icon: "error",
-          type: "error"
-        });
-      }
-    })
-  
+  register = async() => {
     
+    this.setState({ loading: true })
+
+    await axios.post(`https://apimigraineservicio.herokuapp.com/api/auth/signup`
+   
+   
+    , {
+      username: this.state.username,
+      email:this.state.email,
+      password: this.state.password,
+    }).then((res) => {
+      swal({
+        text: "Se envio un mensaje de confimacion a tu correo electronico",
+        icon: "success",
+        type: "success"
+      });
+      this.setState({ loading: false })
+      this.props.history.push('/');
+    }).catch((err) => {
+      swal({
+        text: err.response.data.errorMessage,
+        icon: "error",
+        type: "error"
+      });
+    });
+
+
+    
+
   }
 
+  
   sendGoogleToken = async tokenId => {
 
     console.log(tokenId)
@@ -100,14 +94,13 @@ export default class Login extends React.Component {
   */
 
 
-  responseGoogle = async (response) => {
+  responseGoogle = response => {
     console.log(response);
-    await this.sendGoogleToken(response.tokenId);
+     this.sendGoogleToken(response.tokenId);
   };
 
+
   render() {
-    console.log(this.state.email)
-    console.log(this.state.password)
     const classes = makeStyles({
       root: {
         position: 'relative',
@@ -122,21 +115,41 @@ export default class Login extends React.Component {
         left: 0,
       },
     });
-  
     return (
-   
-
-     <div  className='contenedor'>
-      
-      <div className='login'
-          style={{ //marginTop: '200px' 
-          }}>
-              
+<>
+      <Grid  
+      className='contenedor'
+      //container
+      //spacing={0}
+      //direction="row"
+      //alignItems="center"
+      //alignContent='center'
+      //justifyContent="center"
+      style={{ 
+        //minHeight: '100vh' 
+      }}>
+      <div 
+        className='login'
+      style={{ 
+        //marginTop: '200px' 
+        }}>
         <div>
-          <h2>Iniciar Sesion</h2>
+          <h2>Registro</h2>
         </div>
 
         <div>
+          <TextField
+            id="standard-basic"
+            type="text"
+            autoComplete="off"
+            name="username"
+            value={this.state.username}
+            onChange={this.onChange}
+            placeholder="Nombre de Usuario"
+            required
+          />
+          <br /><br />
+
           <TextField
             id="standard-basic"
             type="text"
@@ -148,6 +161,7 @@ export default class Login extends React.Component {
             required
           />
           <br /><br />
+
           <TextField
             id="standard-basic"
             type="password"
@@ -155,7 +169,18 @@ export default class Login extends React.Component {
             name="password"
             value={this.state.password}
             onChange={this.onChange}
-            placeholder="Constraseña"
+            placeholder="Contraseña"
+            required
+          />
+          <br /><br />
+          <TextField
+            id="standard-basic"
+            type="password"
+            autoComplete="off"
+            name="confirm_password"
+            value={this.state.confirm_password}
+            onChange={this.onChange}
+            placeholder="Confirmar contraseña"
             required
           />
           <br /><br />
@@ -164,48 +189,52 @@ export default class Login extends React.Component {
             variant="contained"
             color="primary"
             size="small"
-            disabled={this.state.username ==='' && this.state.password === ''}
-            onClick={this.login}
+            disabled={this.state.username === '' && this.state.password === ''}
+            onClick={this.register}
           >
-            Iniciar Sesion
+            Registrar
           </Button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-     
-          <Link href="/api/auth/signup">
-            Registrarse
+          <Link href="/api/auth/signin">
+            Iniciar Sesion
           </Link>
           <br /><br />
-          {this.state.loading ? <><div className='bloqueo'>Espere...</div><br /><br />  <CircularProgress
-        variant="indeterminate"
-        disableShrink
-        className={classes.bottom}
-        size={24}
-        thickness={4}
-      
-      /> </>:  null}
+        
         </div>
-
 
         <GoogleLogin
                   clientId={`997142542146-aa93t66orm2c5emoplrfmmmv24m38e2m.apps.googleusercontent.com`}
-                  buttonText="Iniciar sesion con google"
+                  buttonText="Registrarse con google"
                   onSuccess={(response)=>{this.responseGoogle(response)}}
                   onFailure={(response)=>{this.responseGoogle(response);console.log(response)}}
                  
                   cookiePolicy={'single_host_origin'}
                 ></GoogleLogin>
-
-        
-          
-       
       </div>
-      
+
       <div  className='imagen'
             style={{ backgroundImage: `url(${authSvg})` }}
           >
 
           </div>
-   
+
+      </Grid>
+
+{this.state.loading ? <>
+
+  <div className='bloqueotext'> Espere...
+  <br /><br />  
+  <CircularProgress
+      variant="indeterminate"
+      disableShrink
+      className={classes.bottom}
+      size={24}
+      thickness={4}
+
+   />
   </div>
+  <div className='bloqueoback'></div>
+ 
+    </>:  null}</>
     );
   }
 }

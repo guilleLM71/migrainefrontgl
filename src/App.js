@@ -2,14 +2,14 @@ import React, { Component, useState } from "react";
 import "./App.css";
 import { Switch, Redirect, Route } from 'react-router';
 import { BrowserRouter, Link, Navigate } from 'react-router-dom';
-import Login from './Login';
-import Register from './Register';
+import Login from './componentes/auth/Login';
+import Register from './componentes/auth/Register';
 import Dashboard from './Dashboard';
 import Diagnostico from "./pages/Diagnostico"
 import Tratamiento from "./pages/Tratamiento"
 import Home from "./pages/Home"
-import Navbar from './Navbar';
-import Activate from "./Activate";
+import Navbar from './componentes/navbar/Navbar';
+import Activate from "./componentes/auth/Activate";
 import Admin from "./pages/Admin";
     
 

@@ -5,6 +5,7 @@ import {CircularProgress, Button, TextField, Link, Grid, Select, MenuItem } from
 import { makeStyles, withStyles, lighten } from '@material-ui/styles';
 const axios = require('axios');
 const roles=[]
+const servercliente="https://apimigraineservicio.herokuapp.com"
 export default class Admin extends React.Component {
   constructor(props) {
     super(props);
@@ -26,7 +27,7 @@ export default class Admin extends React.Component {
     
     this.setState({ loading: true })
 
-    await axios.post(`https://apimigraineservicio.herokuapp.com/api/users/admin`
+    await axios.post(`${servercliente}/api/users/admin`
     , {
       username: this.state.username,
       email:this.state.email,

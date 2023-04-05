@@ -1,5 +1,5 @@
 import React from 'react';
-import Quiz from '../Quiz';
+import Quiz from '../componentes/formulario/Quiz';
 
 class Diagnostico extends React.Component {
   render(){

@@ -17,21 +17,21 @@ import {
 } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
 import swal from "sweetalert";
-import Quiz from "./Quiz";
-import Navbar from "./Navbar";
+import Quiz from "./componentes/formulario/Quiz";
+import Navbar from "./componentes/navbar/Navbar";
 import Diagnostico from "./pages/Diagnostico";
 import Tratamiento from "./pages/Tratamiento";
 import Home from "./pages/Home";
 import { Switch} from 'react-router';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Navegacion from "./Navbar";
+import Navegacion from "./componentes/navbar/Navbar";
 import "./global.css";
 import Admin from "./pages/Admin";
 import Doctor from "./pages/Doctor";
 import Paciente from "./pages/Paciente";
-import PrivadoAdm from "./PrivadoAdm";
-import PrivadoDoc from "./PrivadoDoc";
-import PrivadoPac from "./PrivadoPac";
+import PrivadoAdm from "./componentes/rutasprivadas/PrivadoAdm";
+import PrivadoDoc from "./componentes/rutasprivadas/PrivadoDoc";
+import PrivadoPac from "./componentes/rutasprivadas/PrivadoPac";
 const axios = require("axios");
 
 export default class Dashboard extends Component {

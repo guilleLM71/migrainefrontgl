@@ -1,10 +1,10 @@
 import preguntas from "./preguntas";
 import { useState, useEffect } from "react";
-import "./global.css";
+import "../../global.css";
 //import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
 import swal from 'sweetalert';
-import Diagnostico from "./pages/Diagnostico";
+import Diagnostico from "../../pages/Diagnostico";
 import {CircularProgress, Button, TextField, Link, Grid } from '@material-ui/core';
 
 import { makeStyles, withStyles, lighten } from '@material-ui/styles';
@@ -77,7 +77,7 @@ class Quiz extends React.Component {
       this.setState({prediccion:"Aura tipica con migraña"})
   }
     if(datos['pred']===2){
-        this.setState({prediccion:"migraña sin aura"})
+        this.setState({prediccion:"Migraña sin aura"})
     }
     if(datos['pred']===1){
         this.setState({prediccion:"Migraña hemipléjica familiar"})
@@ -90,7 +90,7 @@ class Quiz extends React.Component {
     }
 
     if(datos['pred']===3){
-        this.setState({prediccion:"Posiblemente no tengas migraña y sea otro tipo de cefalea casual"})
+        this.setState({prediccion:"Posiblemente no tengas migraña y sea otro tipo de cefalea"})
     }
     
     if(datos['pred']===4){
@@ -182,7 +182,8 @@ class Quiz extends React.Component {
             direction="column"
             alignItems="center"
             justifyContent="center"
-            style={{ minHeight: '10vh' ,minwidth: "707px" }}
+          
+            style={{ minHeight: '10vh' ,minwidth: "707px" , gap:"15px"}}
             >
             <div className="app " style={{color:"#fff"}}>
                 <div className="lado-izquierdo " >
@@ -328,26 +329,38 @@ class Quiz extends React.Component {
                     }}
                 >
                     Terminar Diagnostico
-            </button>   
+            </button> 
+
+            <div className="">
+                    <p1> Una vez realizado el diagnostico haga clik en Terminar diagnostico para guardar sus resultados... </p1>
+    
+                </div>    
 
             <br /><br />
-            {this.state.loadingDiag ? <> <div>Diagnosticando...</div><br /><br /><CircularProgress
+            {this.state.loadingDiag ? <> 
+            <div >Diagnosticando...
+            <br /><br /><CircularProgress
         variant="indeterminate"
         disableShrink
         className={classes.bottom}
         size={24}
         thickness={4}
       
-      /> </>:  null}
+      />
+              </div> </>:  null}
 
-        {this.state.loading ? <> <div>Espere...</div><br /><br /><CircularProgress
+        {this.state.loading ? <> 
+        <div>Espere...
+        <br /><br /><CircularProgress
         variant="indeterminate"
         disableShrink
         className={classes.bottom}
         size={24}
         thickness={4}
       
-      /> </>:  null}
+      /> 
+          
+          </div></>:  null}
 
 
             </Grid>

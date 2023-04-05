@@ -1,4 +1,4 @@
-import preguntas from "./preguntas";
+import preguntas from "./componentes/formulario/preguntas";
 import { useState, useEffect } from "react";
 import "./global.css";
 //import 'bootstrap/dist/css/bootstrap.min.css';

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import swal from "sweetalert";
-import preguntas from "../preguntas";
+import preguntas from "../componentes/formulario/preguntas";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import {
@@ -56,8 +56,10 @@ const sintomashead = [
   "DPF",
 ];
 
-let map = new Map();
+var map = new Map();
+const servercliente="https://apimigraineservicio.herokuapp.com"
 
+const modeloserver="https://web-production-9492.up.railway.app"
 export default class Paciente extends React.Component {
   constructor(props) {
     super(props);
@@ -113,7 +115,8 @@ export default class Paciente extends React.Component {
     const sints = this.state.respuestas.map((x) => parseInt(x));
 
     this.setState({ loadingDiag: true });
-    await fetch("https://web-production-9492.up.railway.app/predict", {
+    await fetch(`${modeloserver}/predict`
+    , {
       method: "POST",
       body: JSON.stringify({ Sintomas: [sints] }),
       headers: {
@@ -179,7 +182,7 @@ export default class Paciente extends React.Component {
 
     await axios
       .post(
-        `https://apimigraineservicio.herokuapp.com/api/pacient/pacientes`,
+        `${servercliente}/api/pacient/pacientes`,
         { iddoc: this.props.userid },
         { headers: { "x-access-token": this.props.token } }
       )
@@ -187,31 +190,35 @@ export default class Paciente extends React.Component {
         console.log("entro aqui");
         this.setState({ pacientes: res.data.pacientes });
         console.log(this.state.pacientes);
+        /*
         swal({
-          text: res.data.title,
+          text: "Cargando pacientes...",
           icon: "success",
           type: "success",
-        });
+        });*/
         this.setState({ loading: false });
       })
       .catch((err) => {
         console.log("error aqui");
+        /*
         swal({
           text: err.response.data.errorMessage,
           icon: "error",
           type: "error",
-        });
+        });*/
       });
   };
 
-  abrilmodalsintomas = async (idpac) => {
+  abrilmodalsintomas = async (sintomas) => {
+  
+   
     this.setState({ abiertomodalsintomas: !this.state.abiertomodalsintomas });
-    this.setState({ iduser: idpac });
+    //this.setState({ iduser: idpac });
     console.log(this.state.abiertomodalsintomas);
-
+/*
     let token = localStorage.getItem("token");
     await axios
-      .get(`https://apimigraineservicio.herokuapp.com/api/pacient/paciente/` + idpac, {
+      .get(`${servercliente}/api/pacient/paciente/` + idpac, {
         headers: {
           "Content-type": "application/json",
           "x-access-token": token,
@@ -226,8 +233,18 @@ export default class Paciente extends React.Component {
       })
       .catch((err) => {
         console.log(err);
-      });
-
+      });*/
+      //this.setState({ sintomas: sintomas });
+      if(sintomas.length !== 0){
+        for (let i = 0; i < sintomas.length; i++) {
+          map.set(sintomashead[i], sintomas[i]);
+        }
+      }else{
+        map = new Map();
+      }
+      
+      console.log('this.state.sintomas :>> ',sintomas);
+      
     //this.setState({ loading: false })
   };
 
@@ -244,7 +261,7 @@ export default class Paciente extends React.Component {
 
     await axios
       .post(
-        `https://apimigraineservicio.herokuapp.com/api/pacient/doctor`,
+        `${servercliente}/api/pacient/doctor`,
         {
           ci: this.state.ci,
           nombre: this.state.nombre,
@@ -299,7 +316,7 @@ export default class Paciente extends React.Component {
     this.setState({ loading: true });
     await axios
       .put(
-        `https://apimigraineservicio.herokuapp.com/api/pacient/pacientes/` + iduser,
+        `${servercliente}/api/pacient/pacientes/` + iduser,
         JSON.stringify({
           sintomas: this.state.respuestasValor,
           diagnostico: this.state.prediccion,
@@ -339,7 +356,7 @@ export default class Paciente extends React.Component {
     this.setState({ iduser: idpac });
     let token = localStorage.getItem("token");
     await axios
-      .get(`https://apimigraineservicio.herokuapp.com/api/pacient/paciente/` + idpac, {
+      .get(`${servercliente}/api/pacient/paciente/` + idpac, {
         headers: {
           "Content-type": "application/json",
           "x-access-token": token,
@@ -349,6 +366,7 @@ export default class Paciente extends React.Component {
         console.log(res);
         this.setState({ ci: res.data.ci });
         this.setState({ nombre: res.data.nombre });
+        this.setState({ diagnostico: res.data.diagnostico});
       })
       .catch((err) => {
         console.log(err);
@@ -368,11 +386,12 @@ export default class Paciente extends React.Component {
     this.setState({ loading: true });
     await axios
       .put(
-        `https://apimigraineservicio.herokuapp.com/api/pacient/paciente/` + iduser,
+        `${servercliente}/api/pacient/paciente/` + iduser,
         JSON.stringify({
           _id: iduser,
           ci: this.state.ci,
           nombre: this.state.nombre,
+          diagnostico:this.state.diagnostico
         }),
         {
           headers: {
@@ -407,7 +426,7 @@ export default class Paciente extends React.Component {
 
     await axios
       .delete(
-        `https://apimigraineservicio.herokuapp.com/api/pacient/paciente/${idpac}`,
+        `${servercliente}/api/pacient/paciente/${idpac}`,
         {
           headers: {
             "Content-type": "application/json",
@@ -502,7 +521,7 @@ export default class Paciente extends React.Component {
                 <TableRow>
                   <TableCell align="center">CI</TableCell>
                   <TableCell align="center">NOMBRE</TableCell>
-                  <TableCell align="center">DIAGNOSTICO</TableCell>
+                  <TableCell align="center">DIAGNOSTICO </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -515,7 +534,7 @@ export default class Paciente extends React.Component {
                       <TableCell>
                         <Button
                           onClick={() => {
-                            this.abrilmodalsintomas(paciente._id);
+                            this.abrilmodalsintomas(paciente.sintomas);
                           }}
                                                   
                           className="button_style"
@@ -551,7 +570,7 @@ export default class Paciente extends React.Component {
                           size="small"
                           style={{ margin: "4px" }}
                         >
-                          <i className="material-icons">Tratamiento</i>
+                          <i className="material-icons">Trat. Prox!!</i>
                         </Button>
                         <Button
                           onClick={() => {
@@ -867,6 +886,23 @@ export default class Paciente extends React.Component {
                     />
                     <br />
                     <br />
+                    {
+                      this.state.diagnostico!="Sin Diagnostico"?
+                      <>
+                      <TextField
+                      id="standard-basic"
+                      type="text"
+                      autoComplete="off"
+                      name="diagnostico"
+                      value={this.state.diagnostico}
+                      onChange={this.onChange}
+                      placeholder="diagnostico"
+                     
+                    />
+                    <br />
+                    <br /></>
+                    :null
+                    }
 
                     <Button
                       className="button_style"
@@ -900,8 +936,7 @@ export default class Paciente extends React.Component {
             </ModalBody>
 
             <ModalFooter>
-              <Button color="primary">Terminar</Button>
-
+             
               <Button
                 color="secondary"
                 onClick={() => {
@@ -964,6 +999,7 @@ export default class Paciente extends React.Component {
                 color="secondary"
                 onClick={() => {
                   this.setState({ abiertomodalsintomas: false });
+               
                 }}
               >
                 Cerrar
